@@ -10,9 +10,15 @@ The Tamagotchi lives within course's IoT backend system, and user interact with 
 
 ## Key Features:
 
-Multiple tasks Using RTOS: There are separate tasks for handling MPU and UART (Universal Asynchronous Receiver-Transmitter) communication.
-Finite State Machine Implementation: The code uses an enumeration-based finite state machine for managing different states of the program and the virtual pet's activities. This allows for organized and efficient state transitions based on user interactions and sensor data.
-Button and LED Handling: The code includes configurations for buttons and LEDs, allowing user interaction through physical hardware. Buttons are used to change the state of the program, and LEDs provide visual feedback.
-Sensor Interaction: The code interacts with an MPU9250, which is a motion tracking device. It reads acceleration and gyroscope data, crucial for determining the virtual pet's actions based on physical movements of the device.
-Feedback System: The program gives feedback via buzzer based on the pet's responses.
-UART Communication: The communication between the SensorTag and the backend system is facilitated through UART (Universal Asynchronous Receiver-Transmitter), ensuring real-time data transfer and responsiveness.
+#### Multiple tasks Using RTOS:
+There are separate tasks for handling MPU and UART (Universal Asynchronous Receiver-Transmitter) communication.
+#### Finite State Machine Implementation:
+The code uses an enumeration-based finite state machine for managing different states of the program and the virtual pet's activities. This allows for organized and efficient state transitions based on user interactions and sensor data.
+#### Button and LED Handling:
+The code includes configurations for buttons and LEDs, allowing user interaction through physical hardware. Buttons are used to change the state of the program, and LEDs provide visual feedback.
+#### Sensor Interaction:
+The code interacts with an MPU9250, which is a motion tracking device. It reads acceleration and gyroscope data, crucial for determining the virtual pet's actions based on physical movements of the device.
+#### Feedback System:
+The program gives feedback via buzzer based on the pet's responses.
+#### UART Communication:
+The communication between the SensorTag and the backend system is facilitated through UART (Universal Asynchronous Receiver-Transmitter), ensuring real-time data transfer and responsiveness.
