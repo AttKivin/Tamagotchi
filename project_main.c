@@ -2,7 +2,7 @@
  * Tamagotchi project
  * Course: Introduction to the Computer Systems at University of Oulu
  *
- * Atte Kiviniemi, Teemu Kolu
+ * Atte Kiviniemi
  *
  * */
 
@@ -45,7 +45,7 @@ static PIN_State buttonState;
 static PIN_Handle hBuzzer;
 static PIN_State sBuzzer;
 
-// Define a structure to hold the limit values
+// Define a structure to store the limit values
 struct Limits {
     float max_ax;
     float laying_ax;
@@ -135,7 +135,7 @@ void marioTheme() {
     /*
      *  Imitating Super Mario Bros. theme song
      *  Got note frequency and delay time from https://gist.github.com/gskielian/6135641
-     *  Replaced tone() fuction with buzzerSetFrequency() and looped song
+     *  Replaced tone() fuction with buzzerSetFrequency() and used loops
      *
      */
 
@@ -175,6 +175,10 @@ void marioTheme() {
 
 void buzzerSound(int num){
 
+    /*
+    *   Sounds that are played based on state
+    */
+
     buzzerOpen(hBuzzer);
 
     if (num == 1) {
@@ -183,6 +187,7 @@ void buzzerSound(int num){
         delay(50);
         buzzerSetFrequency(1218.51);
         delay(200);
+        buzzerClose();
 
     } else if (num == 2) {
         buzzerSetFrequency(700);
@@ -191,6 +196,7 @@ void buzzerSound(int num){
         delay(50);
         buzzerSetFrequency(500);
         delay(50);
+        buzzerClose();
 
     } else if (num == 3) {
         // Notification sound
@@ -202,6 +208,7 @@ void buzzerSound(int num){
         delay(100);
         buzzerSetFrequency(2093);
         delay(50);
+        buzzerClose();
 
     } else if (num == 4) {
         // Game over - tamagotchi ran away
@@ -230,11 +237,16 @@ void buzzerSound(int num){
         delay(150);
         buzzerSetFrequency(330);
         delay(900);
+        buzzerClose();
     }
-    buzzerClose();
 }
 
 int movement(float arr_ax[], float arr_gz[], int len) {
+
+    /*
+    *   Function for movement recognition
+    */
+
     // Limit values
     struct Limits limit = {0.64475, 0.952375, 51.60522};
 
@@ -273,6 +285,11 @@ int movement(float arr_ax[], float arr_gz[], int len) {
 }
 
 void mpuTask(UArg arg0, UArg arg1) {
+
+    /*
+    *   MPU task that in loop reads values from MPU 9250 and stores them in list.
+    *   After that detects if right movement is done and changes state /& plays sound
+    */
 
     float ax, ay, az, gx, gy, gz;
     int index = 0;
@@ -343,14 +360,18 @@ void mpuTask(UArg arg0, UArg arg1) {
 
 void uartFxn(UART_Handle uart, void *rxBuffer, size_t len) {
 
+    /*
+    *   serves as a callback for UART read operations.
+    *   It checks the received data for specific substrings
+    *   updates the program state based on the content of the received message.
+    */
+
     // Checks if uartBuffer has substring "3033,BEEP" in it
     if ((strstr((char*)rxBuffer, "3033,BEEP:Too late") != NULL)) {
-
         // Change state to RUNAWAY
         programState = RUNAWAY;
 
     } else if ((strstr((char*)rxBuffer, "3033,BEEP") != NULL)) {
-
         // Change state to NEW_MSG
         programState = NEW_MSG;
 
@@ -359,6 +380,12 @@ void uartFxn(UART_Handle uart, void *rxBuffer, size_t len) {
 }
 
 void uartTask(UArg arg0, UArg arg1) {
+
+    /*
+    *   Initializes UART parameters and opens a UART channel for communication.
+    *   Initiates an asynchronous read operation on the UART channel.
+    *   Continuously monitors the programState variable in a loop and performs actions based on its value
+    */
 
     //Variables
     uint8_t uartBuffer[80];
