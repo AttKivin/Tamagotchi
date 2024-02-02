@@ -2,7 +2,7 @@
 
 ## Overview
 
-This repository contains the project developed for the "Introduntion to the computer systems" course at the University of OuluThe project is implemented in C and is designed for Texas Instruments SensorTag. The aim for this project was gain experience with embedded systems. The project aims to recreate the experience of nurturing a virtual pet through interactive and engaging means.
+This repository contains the project developed for the "Introduntion to the computer systems" course at the University of Oulu. The project is implemented in C and is designed for Texas Instruments SensorTag. The aim for this project was gain experience with embedded systems. The project aims to recreate the experience of nurturing a virtual pet through interactive and engaging means.
 
 ## Project Description 
 
